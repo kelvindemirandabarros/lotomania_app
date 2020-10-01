@@ -1,0 +1,210 @@
+/* Reset de CSS. */
+/* html,
+body {
+    width: 100vw;
+    height: 100vh;
+} */
+body {
+    background-color: rgb(123, 177, 247);
+}
+
+* {
+    /* margin: 0px;
+    padding: 0.5px; */
+    box-sizing: border-box; /* Faz as contas automaticamente entre os espaçamentos e as dimensões totais. */
+}
+
+/* Cabeçalho com os Menus. */
+header {
+    margin: 10px 10px 10px 0; /* Espaçamento externo do elemento com outros elementos. */
+    font-weight: 200; /* Espessura do Texto dentro do <div>. */
+    font-size: 100%;
+    border: solid 1px;
+    margin: 4px 4px 0 4px; /* Espaçamento externo. */
+    padding: 4px; /* Espaçamento interno. */
+    min-height: 54px; /* Altura máxima. */
+}
+
+.p-header {
+    margin: 2px;
+    padding: 1px
+}
+
+
+button {
+    border-radius: 4pc; /* Borda arredondada nos botões. */
+}
+
+select {
+    font-family: Arial;
+    font-size: 8pt;
+    background-color:white;
+    border-radius: 4pc; /* Borda arredondada. */
+}
+
+#selecionador_tipo_cartao {
+    width: 115px;
+}
+
+#selecionador_cartao {
+    width: 48px;
+}
+
+/* Classe com os LABELs e com os INPUTs de tipo NUMBER. */
+.labels {
+    font-weight: 200; /* Espessura do texto. */
+    font-size: 100%; /* Tamanho do texto. */
+    font-weight: bold; /* Coloca o texto em Negrito. */
+}
+
+input {
+    border-radius: 5px; /* Borda arredondada nos INPUTs. */
+    padding-left: 6px; /* Espaçamento interno. */
+}
+
+#input_custo_cartao {
+    width: 50px;
+}
+#p15 {
+    width: 50px;
+}
+#p16 {
+    width: 50px;
+}
+#p17 {
+    width: 55px;
+}
+#p18 {
+    width: 65px;
+}
+#p19 {
+    width: 75px;
+}
+#p20 {
+    width: 95px;
+}
+
+
+#txtfiletoread {
+    background: red;
+}
+
+/* Section Principal com o id="sectPrincipal". */
+#sectPrincipal {
+    display: flex; /* Define o tipo de caixa de renderização usada pelo elemento. Faz com que um elemento fique ao lado do outro, e não um embaixo do outro. */
+    font-size: 1.5em; /* Tamanho da Fonte do Texto. */
+    max-height: 100%;
+}
+
+/* Define padrões para todas as divisões <div>. */
+div {
+    /*border: 1px solid; /* 1 pixel de tamanho. Pode ser solid para uma linha, double para duas linhas. */
+    border-radius: 0.4pc;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Divisão onde se encontram os botões. */
+#divBotoesNumeros {
+    margin: 5px; /* Espaçamento em relação aos elementos externos. */
+    padding: 2px; /* Espaçamento em relação aos elementos internos. */
+    min-width: 410px; /* Largura mínima da divisão das bolas. */
+    max-width: 410px; /* Largura máxima da divisão das bolas. */
+    max-height: 420px; /* Altura máxima de 430 pixels. */
+    background-color: white;
+
+    /* Botões das bolas em forma de grade. */
+    display: grid; /* Coloca os elementos em grade. */
+    /* Cada '1fr' significa mais uma coluna. E o 'fr' calcula o tamanho automaticamente para caber no espaço disponível. Possui 10 colunas. */
+    grid-template-columns: repeat( 10, 1fr );
+    gap: 1px; /* Faz o espaçamento entre todos os elementos grid automaticamente. */
+}
+
+/* Classe dos botões, para dar forma a eles. */
+.botao_bola {
+    border-radius: 50%; /* Transforma a borda de quadrada para arredondada com 50% de curva. */
+    font-weight: 800; /* Espessura do texto. */
+    background-color: red; /* Cor do Fundo. */
+    color: black;
+    /*padding: 0.48em; /* Espaçamento dentro do elemento para sua borda. Se atribuir apenas um parâmetro, servirá para todos (top, right, bottom, left). */
+    padding: 6.6px;
+    margin: 2px; /* Margem do elemento com outros elementos. Se atribuir apenas um parâmetro, servirá para todos (top, right, bottom, left). */
+}
+
+/* Aqui é a divisão que contém as divs com os resultados dos Cartões Extras. */
+#divResultadosNaTela {
+    padding: 2px; /* Espaçamento com relação aos elementos internos. */
+    margin: 10px 10px 10px 0; /* Espaçamento com relação aos elementos externos. */
+    max-height: 430px; /* Altura máxima de 430 pixels. */
+    font-size: 100%;
+    display: flex; /* Coloca as divisões dos resultados um do lado do outro. */
+    overflow-x: scroll; /* Coloca uma barra de rolagem no eixo x. */
+    max-width: calc( 98vw - 410px );
+    box-shadow: 0 0 0; /* Retira a sombra da divRes... */
+}
+
+/* Aqui é a classe das divisões dos resultados. (divs "filhos") */
+.result {
+    max-height: 410px; /* Altura máxima. */
+    margin: 1px; /* Espaçamento com relação aos elementos externos. */
+    /* padding: 2px 3px 2px 3px; /* Espaçamento com relação aos elementos internos. */
+    background-color: white;
+    /*border: dashed; /* Coloca a borda como tracejada. */
+}
+
+.result-subtitle {
+    margin: 1px;
+    margin-bottom: 0px;
+    padding: 2px;
+}
+
+/* Classe das divisões internas às divisões dos resultados. (divs "netos") */
+.result2 {
+    margin-top: 2px; /* Espaçamento externo. */
+    margin-bottom: 0; /* Espaçamento de baixo em zero. */
+    padding: 5px; /* Espaçamento interno. */
+    overflow-y: scroll; /* Barra de rolagem automática no eixo y. */
+    min-height: 320px; /* Altura mínima. */
+    max-height: 320px; /* Altura máxima. */
+    font-size: 18px; /* Tamanho da fonte. */
+    /* border: solid; /* Coloca a borda como pontilhada. */
+    min-width: 650px;
+    max-width: 650px;
+}
+
+#subdivFB {
+    margin-top: 2px; /* Espaçamento externo. */
+    /* margin-bottom: 0; /* Espaçamento de baixo em zero. */
+    padding: 5px; /* Espaçamento interno. */
+    overflow-y: scroll; /* Barra de rolagem automática no eixo y. */
+    min-height: 356px; /* Altura mínima. */
+    max-height: 356px; /* Altura máxima. */
+    font-size: 18px; /* Tamanho da fonte. */
+    /* border: solid; /* Coloca a borda como pontilhada. */
+    min-width: 375px;
+    max-width: 375px;
+}
+#subdivFBS {
+    min-width: 350px;
+    margin: 1px; /* Espaçamento externo. */
+    margin-bottom: 0px; /* Espaçamento de baixo em zero. */
+    padding: 5px; /* Espaçamento interno. */
+    overflow-y: scroll; /* Barra de rolagem automática no eixo y. */
+    min-height: 356px; /* Altura mínima. */
+    max-height: 356px; /* Altura máxima. */
+    font-size: 18px; /* Tamanho da fonte. */
+}
+#subdivCnCE {
+    margin: 6px; /* Espaçamento externo. */
+    margin-bottom: 0; /* Espaçamento de baixo em zero. */
+    padding: 6px; /* Espaçamento interno. */
+    overflow-y: scroll; /* Barra de rolagem automática no eixo y. */
+    min-height: 330px; /* Altura mínima. */
+    max-height: 330px; /* Altura máxima. */
+    font-size: 18px; /* Tamanho da fonte. */
+}
+
+.result3 {
+    margin: 5px 1px 0px; /* Espaçamento externo. */
+    padding: 5px; /* Espaçamento interno. */
+    /*box-shadow: 0 0 0; /* Retira a sombra. */
+}

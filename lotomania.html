@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LOTOMANIA 1.4.1 - Página p/ resolução 1366x768 - Kelvin de Miranda Barros</title>
+        <link rel="shortcut icon" href="/imgs/favicon.png" type='image/png'>
+        <link rel="stylesheet" href="lotomania.css">
+    </head>
+
+    <body>
+        <header>
+            <button type="button" id='botao_instructions' style="background-color: rgb(179, 236, 222);">INSTRUÇÕES!</button>
+
+            <label class="labels">Selecione o tipo de cartão:</label>
+
+            <select class="selecionadores" id="selecionador_tipo_cartao">
+                <!-- Values: Nenhum; Concursos; Cartões Extras. -->
+                <option value="N" selected=""></option>
+
+                <option value="C">Concursos</option>
+
+                <option value="CE">Cartões Extras</option>
+            </select>
+
+            <label id="labelQuant" class="labels"><b>Quant. = 0</b></label>
+
+            <!-- "botao_CCEA" sifnifica Cria Cartão Extra Aleatório. -->
+            <button type="button" id="botao_CCEA" onclick="cria_cartao_extra_aleatorio ()" disabled="true">Aleatório</button>
+            <!-- Botão Adiciona Cartão. -->
+            <button type="button" id="botao_AC" onclick="adiciona_cartao ()">Adicionar Novo Cartão</button>
+
+            <label class="labels">Selecione o número do cartão:</label>
+            
+            <!-- class = "selecionador de cartões" -->
+            <select id="selecionador_cartao" class="selNum">
+                <!-- id = "selecionador de Nenhum tipo" -->
+                <option selected=""></option>
+            </select>
+            
+            <button type="button" id="botaoEditaCartao" onclick="editar_cartao ()">Editar Cartão</button>
+
+            <!-- Parágrafo que contém as entradas de Custo do Cartão e de Premiações dos acertos. -->
+            <p id="paragrafoCustoEPremiacoes" class='p-header'>
+                <label class="labels">Custo do Cartão:</label>
+                <input type="text" id="input_custo_cartao" class="labels" value="2.50">
+
+                <label class="labels" id="labelPremia">Premiações. Acertos:</label>
+
+                <label class="labels">15: R$</label>
+                <input type="number" id="p15" class="labels" value="5">
+
+                <label class="labels">16: R$</label>
+                <input type="number" id="p16" class="labels" value="23">
+
+                <label class="labels">17: R$</label>
+                <input type="number" id="p17" class="labels" value="140">
+
+                <label class="labels">18: R$</label>
+                <input type="number" id="p18" class="labels" value="1400">
+
+                <label class="labels">19: R$</label>
+                <input type="number" id="p19" class="labels" value="20000">
+                
+                <label class="labels">20: R$</label>
+                <input type="number" id="p20" class="labels" value="600000">
+            </p>
+
+            <p id='p_carregamento_arquivos' class='p-header'>
+                <!--  -->
+                <button type="button" id="botao_escolhe_arquivo" onclick="escolhe_arquivo_para_carregar ()">Escolher Cartões para Carregar</button>
+
+                <!-- Este input será responsável em carregar os arquivos de Concursos e os Cartões Extras. -->
+                <input type="file" id="carregador_arquivos" disabled='true'>
+
+                <!--  -->
+                <button type="button" id="botao_cancela_carregamento" disabled='true' onclick="cancela_carregamento ()">Cancelar carregamento</button>
+            </p>
+        </header>
+
+        <section id="sectPrincipal">
+            <!-- Divisão dos botões das bolas. -->
+            <div id="divBotoesNumeros"></div>
+
+            <!-- Divisão com os resultados. -->
+            <div id="divResultadosNaTela">
+                <!-- Mostrar Frequência das Bolas nos Concursos. -->
+                <div id="divFB" class="result">
+                    <p class='result-subtitle'>Frequências das bolas nos Concursos</p>
+
+                    <div id="subdivFB"></div>
+                </div>
+
+                <!-- Mostrar Frequência das Bolas Selecionadas. -->
+                <div id="divFBS" class="result">
+                    <p class="result-subtitle">Frequências das bolas selecionadas</p>
+
+                    <div id="subdivFBS" ></div>
+                </div>
+
+                <!-- Cartões Extras:    ..........    -->
+                <div id="divCE" class="result">
+                    <p class="result-subtitle">Cartões Extras</p>
+
+                    <div id="subdivCE" class="result2"></div>
+
+                    <div id="subdivCEvalores" class="result3">Custos: R$ // Ganhos: R$</div>
+                </div>
+
+                <!-- Verificar todos os Concursos nos Cartões Extras, mas faz o navegador parar de responder. -->
+                <div id="divCnCE" class="result">
+                    <p class="result-subtitle">Possíveis premiações dos Cartões Extras</p>
+                    
+                    <button id="botao_mostrar_c_ce" type="button" onclick="mostra_concursos_nos_cartoes_extras ()">Mostrar</button>
+
+                    <div id="subdivCnCE" class="result2"></div>
+                </div>
+
+                <!-- Divisão para mostrar a comparação dos Cartões Extras entre si. -->
+                <div id="divCompararCartoesDoMesmoTipo" class="result">
+                    <p class="result-subtitle">Comparações de cartões</p>
+
+                    <button id="botao_comparar_extras" type="button">Cartões Extras</button>
+
+                    <div id="subdivCompararCartoesDoMesmoTipo" class="result2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Biblioteca que adicionará o código de salvamento de arquivos txt. -->
+        <script type="text/javascript" src="FileSaver.js/dist/FileSaver.min.js" charset="UTF-8"></script>
+
+        <script type="text/javascript" src="funcoes/salvamentos.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/variaveis.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/elementos_html.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/concursos_frequencia_bolas.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/carrega_arquivos.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/comparacoes_cartoes.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/enumera_nos_selects.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/adicionar_e_editar_cartao.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/confere_premiacoes.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="funcoes/main.js" charset="UTF-8"></script>
+    </body>
+</html>
