@@ -62,6 +62,7 @@ function cria_cartao_extra_aleatorio () {
 }
 botao_CCEA.addEventListener( 'click', cria_cartao_extra_aleatorio );
 
+
 const selecionador_tipo_cartao = document.getElementById( 'selecionador_tipo_cartao' );
 let tipo_cartao_selecionado; // Será o value do <select> dos tipos de Cartão.
 /**

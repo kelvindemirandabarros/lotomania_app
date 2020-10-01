@@ -1,5 +1,6 @@
+const botao_adiciona_cartao = document.getElementById( 'botao_adiciona_cartao' );
 /**
- * Função para adicionar um novo cartão do tipo escolhido.
+ * Adiciona um novo cartão do tipo escolhido.
  */
 function adiciona_cartao () {
 
@@ -44,6 +45,8 @@ function adiciona_cartao () {
         zera_tudo_apos_adicionar_cartao ();
     }
 }
+botao_adiciona_cartao.addEventListener( 'click', adiciona_cartao );
+
 
 // Esta função serve para alterar propriedades do botão "Editar Cartão", deixar visível todos os botões dos números, e para desabilitar alguns botões para que não haja bugs na edição de um cartão.
 function editar_cartao_botoes () {
@@ -56,7 +59,7 @@ function editar_cartao_botoes () {
     if ( tipoDCE[0] !== "Cartões Extras" ) {
         document.getElementById( "botao_CCEA" ).disabled = true;
     }
-    document.getElementById( "botao_AC" ).disabled = true;
+    document.getElementById( "botao_adiciona_cartao" ).disabled = true;
     selecionador_cartao.disabled = true;
 }
 
@@ -108,7 +111,7 @@ function concluir_edicao_do_cartao_botoes ( numero_cartao ) {
     botaoEditaCartao.onclick = function () { editar_cartao () };
     selecionador_tipo_cartao.disabled = false;
     document.getElementById( "botao_CCEA" ).disabled = false;
-    document.getElementById( "botao_AC" ).disabled = false;
+    document.getElementById( "botao_adiciona_cartao" ).disabled = false;
     selecionador_cartao.disabled = false;
     alert( `A edição do Cartão ${ numero_cartao } foi concluída.` );
     zera_tudo_apos_adicionar_cartao (); // Limpa tudo após editar o cartão.
