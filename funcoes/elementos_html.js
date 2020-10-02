@@ -16,52 +16,6 @@ function mostrar_instrucoes () {
 }
 botao_instructions.addEventListener( 'click', mostrar_instrucoes );
 
-// Label para mostrar a quantidade de cartões selecionados.
-const labelQuant = document.querySelector( 'label#labelQuant' );
-
-const botao_CCEA = document.getElementById("botao_CCEA"); // Botão para Criar Cartão Extra Aleatório.
-/**
- * Função para criar um Cartão Extra Aleatório.
- */
-function cria_cartao_extra_aleatorio () {
-
-    let texto_novo_cartao_extra_aleatorio = ""; // Zera o texto.
-    var nova_bola = 0; // Bola que será entre 00 e 99.
-    zera_tudo_apos_adicionar_cartao ();
-
-    for ( var cont = 0; cont < 50; cont++ ) {
-        nova_bola = Math.floor( Math.random() * 99 ); // Reduz para o inteiro mais baixo, o sorteio de 0.0 a 1.0 vezes 99, o que fará um sorteio de 00 a 99.
-        while ( bolas.includes( nova_bola ) ) {
-            nova_bola = Math.floor( Math.random() * 99 );
-        }
-        bolas.push( nova_bola );
-    }
-
-    for ( var zeroANoveNove = 0; zeroANoveNove < 100; zeroANoveNove++ ) {
-        if ( bolas.includes( parseInt( botoes_bolas[ zeroANoveNove ].textContent ) ) ) {
-            botoes_bolas[ zeroANoveNove ].style.backgroundColor = "green";
-        }
-    }
-
-    freq_bolas_selecionadas ();
-
-    // GAMBIARRA A SEGUIR:
-
-    // Compara o novo Cartão Aleatório com os Cartões Extras.
-    compara_cartoes(
-        cartoes_extras,
-        1,
-        [ ["O", "Novo", "Cartão Extra", "Os", "Novos", "Cartões Extras"], [ [1], bolas ] ],
-        1
-    );
-
-    texto_novo_cartao_extra_aleatorio += subdivCompararCartoesDoMesmoTipo.innerHTML;
-    texto_novo_cartao_extra_aleatorio += "--------------------------------------------------------------<br><br>";
-    
-    subdivCompararCartoesDoMesmoTipo.innerHTML = texto_novo_cartao_extra_aleatorio;
-}
-botao_CCEA.addEventListener( 'click', cria_cartao_extra_aleatorio );
-
 
 const selecionador_tipo_cartao = document.getElementById( 'selecionador_tipo_cartao' );
 let tipo_cartao_selecionado; // Será o value do <select> dos tipos de Cartão.
@@ -111,10 +65,62 @@ function seleciona_tipo_cartao ( selecionador_tipo_cartao ) {
             labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`; // O primeiro índice contém strings p/ frases.
             break;
     }
+    
+    enumera_cartoes_no_select( cartoes_selecionados.length - 1 );
 }
 selecionador_tipo_cartao.addEventListener( 'change', event => {
     seleciona_tipo_cartao( event.target );
 });
+
+
+// Label para mostrar a quantidade de cartões selecionados.
+const labelQuant = document.querySelector( 'label#labelQuant' );
+
+const botao_CCEA = document.getElementById("botao_CCEA"); // Botão para Criar Cartão Extra Aleatório.
+/**
+ * Função para criar um Cartão Extra Aleatório.
+ */
+function cria_cartao_extra_aleatorio () {
+
+    let texto_novo_cartao_extra_aleatorio = ""; // Zera o texto.
+    var nova_bola = 0; // Bola que será entre 00 e 99.
+    zera_tudo_apos_adicionar_cartao ();
+
+    for ( var cont = 0; cont < 50; cont++ ) {
+        nova_bola = Math.floor( Math.random() * 99 ); // Reduz para o inteiro mais baixo, o sorteio de 0.0 a 1.0 vezes 99, o que fará um sorteio de 00 a 99.
+        while ( bolas.includes( nova_bola ) ) {
+            nova_bola = Math.floor( Math.random() * 99 );
+        }
+        bolas.push( nova_bola );
+    }
+
+    for ( var zeroANoveNove = 0; zeroANoveNove < 100; zeroANoveNove++ ) {
+        if ( bolas.includes( parseInt( botoes_bolas[ zeroANoveNove ].textContent ) ) ) {
+            botoes_bolas[ zeroANoveNove ].style.backgroundColor = "green";
+        }
+    }
+
+    freq_bolas_selecionadas ();
+
+    // GAMBIARRA A SEGUIR:
+
+    // Compara o novo Cartão Aleatório com os Cartões Extras.
+    compara_cartoes(
+        cartoes_extras,
+        1,
+        [ ["O", "Novo", "Cartão Extra", "Os", "Novos", "Cartões Extras"], [ [1], bolas ] ],
+        1
+    );
+
+    texto_novo_cartao_extra_aleatorio += subdivCompararCartoesDoMesmoTipo.innerHTML;
+    texto_novo_cartao_extra_aleatorio += "--------------------------------------------------------------<br><br>";
+    
+    subdivCompararCartoesDoMesmoTipo.innerHTML = texto_novo_cartao_extra_aleatorio;
+}
+botao_CCEA.addEventListener( 'click', cria_cartao_extra_aleatorio );
+
+
+
 
 
 // onchange="return seleciona_tipo_cartao (this)"
