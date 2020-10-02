@@ -178,61 +178,7 @@ var quant_max_bolas_iguais = 0;
 
 
 // "funcao" serve para guardar a função do arquivo a ser carregado.
-var funcao;
-
-// Esta função é chamada quando um arquivo é carregado, e serve para o carregamento dos arquivos .txt.
-// window.onload = function () {
-    
-//     // 'arqCEF' receberá todo o conteúdo do arquivo .txt com os Concursos.
-//     var arqCEF = [];
-
-//     // Check the support for the File API support:
-//     if ( window.File && window.FileReader && window.FileList && window.Blob ) {
-
-//         // Aqui que coloca o elemento que carregou com o input na variável, mas gostaria de encontrar um carregamento automático.
-//         var fileSelected = document.getElementById( 'carregador_arquivos' );
-
-//         fileSelected.addEventListener( 'change', function (e) {
-            
-//             //Set the extension for the file
-//             var fileExtension = /text.*/;
-
-//             //Get the file object // Arquivo a ler lido.
-//             var fileTobeRead = fileSelected.files[0];
-            
-//             //Check of the extension match
-//             if ( fileTobeRead.type.match( fileExtension ) ) {
-                
-//                 //Initialize the FileReader object to read the 2file
-//                 var fileReader = new FileReader();
-
-//                 fileReader.onload = function (e) {
-
-//                     // "frase" é o arquivo inteiro, e depois faz com que se separe todos os Concursos.
-//                     var frase = fileReader.result.replace(/\n/g, " ").split(" ");
-
-//                     funcao ( frase );
-
-//                     // Não cancela, apenas troca a disponibilidade dos botões de carregamento.
-//                     cancela_carregamento ();
-//                 }
-                
-//                 // Ainda não sei o que isso daqui faz.
-//                 fileReader.readAsText( fileTobeRead );
-//             }
-
-//             else {
-//                 alert ( "Por favor, selecione arquivo texto!" );
-//             }
-
-//         }, false);
-//     }
-
-//     else {
-//         alert ( "Arquivo(s) não suportado(s)!" );
-//     }
-// }
-
+let funcao;
 /**
  * Função para carregar um arquivo .txt
  * @param {*} event é o evento que ativou a função.
@@ -259,6 +205,9 @@ function carrega_txt ( event ) {
                 frase = fileReader.result.replace(/\n/g, " ").split(" ");
                 
                 funcao ();
+
+                // Não cancela, apenas troca a disponibilidade dos botões de carregamento.
+                cancela_carregamento();
             }
             
             // Ainda não sei o que isso daqui faz.

@@ -81,6 +81,7 @@ selecionador_tipo_cartao.addEventListener( 'change', event => {
 // Label para mostrar a quantidade de cartões selecionados.
 const labelQuant = document.querySelector( 'label#labelQuant' );
 
+
 const botao_CCEA = document.getElementById("botao_CCEA"); // Botão para Criar Cartão Extra Aleatório.
 /**
  * Função para criar um Cartão Extra Aleatório.
@@ -123,12 +124,6 @@ function cria_cartao_extra_aleatorio () {
     subdivCompararCartoesDoMesmoTipo.innerHTML = texto_novo_cartao_extra_aleatorio;
 }
 botao_CCEA.addEventListener( 'click', cria_cartao_extra_aleatorio );
-
-
-
-
-
-// onchange="return seleciona_tipo_cartao (this)"
 
 const selecionador_cartao = document.getElementById( 'selecionador_cartao' );
 /**
@@ -186,6 +181,11 @@ let p20 = parseInt( document.getElementById( "p20" ).value ); // Premiação com
 
 const carregador_arquivos = document.getElementById( 'carregador_arquivos' );
 
+const botao_salva_cartoes_em_arquivos_txt = document.getElementById( 'botao_salva_cartoes_em_arquivos_txt' );
+botao_salva_cartoes_em_arquivos_txt.addEventListener( 'click', () => {
+    if ( concursos.length > 1 ) salvar_em_txt ( concursos, "concursos" );
+    if ( cartoes_extras.length > 1 ) salvar_em_txt ( cartoes_extras, "cartoes_extras" );
+});
 
 // SECTION
 

@@ -17,13 +17,13 @@ function cria_lista_frequencia () {
 
 
 /**
- * Esta função serve para criar a frequência de sorteio das bolas. Entra apenas um Concurso de cada vez.
+ * Cria a frequência de sorteio das bolas. Entra apenas um Concurso de cada vez.
  * 
- * @param { array } novo_concurso 
+ * @param { array } bolas_novo_concurso 
  */
-function adiciona_frequencia_das_bolas_novo_concurso ( novo_concurso ) {
+function adiciona_frequencia_das_bolas_novo_concurso ( bolas_novo_concurso ) {
     for ( let bola = 0; bola < 20; bola++ ) {
-        frequencia_bolas[ novo_concurso[ bola ] ][1] += 1; //
+        frequencia_bolas[ bolas_novo_concurso[ bola ] ][1] += 1; //
     }
 }
 

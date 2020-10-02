@@ -4,6 +4,87 @@ function mostra_botao_de_carregamento () {
 }
 
 
+/**
+ * Carrega os Concursos a partir do arquivo da Caixa Econômica Federal.
+ */
+function carrega_concursos_do_arquivo_da_cef () {
+    // OBSs.:
+    // Colocar a variável para entrar como parâmetro.
+    // Fazer com que todas as 4 estatísticas sejam criadas DURANTE o carregamento dos concursos, e não depois do carregamento.
+
+    const concurso_atual = parseInt( prompt ( "Digite o Concurso atual ou o Concurso a ser alcançado, e espere alguns minutos:" ) );
+
+    if ( concurso_atual === null ) return;
+
+    // console.time( 'Carregamento de Concursos' );
+
+    // Objeto 'new Date' usado para calcular o tempo de duração da função inteira.
+    // initial_date é o início do tempo, em milisegundos desde 1970 até o momento da invocação dessa função. Horário de começo da função.
+    let i_date = new Date().getTime();
+
+    // Horário de término da função:
+    let e_date; 
+    // Objeto com os cálculos definidos:
+    let ob_date = {}; 
+
+    frase = frase.toString();
+
+    frase = frase.replace( /"[0-9]{1,3}">/g, "\"1\">" );
+
+    concursos = [ [ "O", "Concurso", "Os", "Concursos" ] ];
+
+    let numero_concurso = 0;
+    let bolas = [];
+    
+    // Para a quantidade total desejada de Concursos.
+    for ( let z = 1; z <= concurso_atual; z++ ) {
+
+        numero_concurso = parseInt( frase.slice( ( frase.search(`"1">`) + 4 ),  ( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) ) ) );
+        // Aqui pegará o número do Concurso. É a transformação em inteiro da parte "cortada" que começa no índice de pesquisa de  "1">  e termina no índice anterior à pesquisa do próximo  </  logo após o primeiro  "1">  , o que indica que o número ali contido dentro da tabela será o concurso.
+
+        frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) );
+        // Retira o começo da string até o número do Concurso.
+
+        frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) );
+        // Retira o começo da string até a data de realização do Concurso.
+
+        bolas = []; // Reinicia a lista das bolas para não bugar.
+
+        for ( var zz = 1; zz <= 20; zz++ ) { // Para a quantidade de bolas.
+
+            bolas.push( parseInt( frase.slice( ( frase.search(`"1">`) + 4 ),  ( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) ) )));
+            // Pega a bola.
+
+            frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) );
+            // Retira o começo da string até a bola já adicionada.
+        }
+
+        for ( var zz = 1; zz < 24; zz++ ) { // FOR para retirar valores que não importam.
+            // Retira valores não importantes.
+            frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) );
+        }
+
+        concursos.push( [ [ numero_concurso ], bolas ] );
+
+        adiciona_frequencia_das_bolas_novo_concurso( bolas );
+    }
+
+    // Objeto 'new Date()' com o método '.getTime()' usados para calcular o tempo de duração da função inteira.
+    e_date = new Date().getTime();
+    ob_date.total = parseInt ( ( e_date - i_date ) / 1000 );
+    // console.log( 'Tempo total: ' + ob_date.total + ' segundos!');
+    ob_date.hours = parseInt( ob_date.total / 3600 );
+    ob_date.total %= 3600;
+    ob_date.minutes = parseInt( ob_date.total / 60 );
+    ob_date.total %= 60;
+    ob_date.seconds = parseInt ( ob_date.total );
+
+    console.log( `O programa demorou ${ ob_date.hours }h:${ ob_date.minutes }m:${ ob_date.seconds }s para carregar.` );
+    
+    console.log( "Carregamento terminado!" );
+}
+
+
 // Esta função serve para carregar os Concursos.
 function carrega_concursos ( frase ) {
 
@@ -91,27 +172,37 @@ function carrega_cartoes_extras ( frase ) {
 }
 
 
+const botao_escolhe_arquivo = document.getElementById( 'botao_escolhe_arquivo' );
+const botao_cancela_carregamento = document.getElementById( 'botao_cancela_carregamento' );
+
+
 // Esta função serve para escolher o tipo de arquivo que será carregado.
 function escolhe_arquivo_para_carregar () {
 
-    document.getElementById( 'botao_escolhe_arquivo' ).style.disabled = true;
+    botao_escolhe_arquivo.disabled = true;
     carregador_arquivos.disabled = false;
-    document.getElementById( 'botao_cancela_carregamento' ).style.disabled = false;
+    botao_cancela_carregamento.disabled = false;
 
     var escolhe;
-    while ( ![ "1", "2" ].includes( escolhe ) ) {
+    while ( ![ "1", "2", '3' ].includes( escolhe ) ) {
                         
-        escolhe = prompt ( "Digite 1 para carregar os Concursos, 2 para os Cartões Extras" ); //, e 4 para esconder o botão de carregamento." );
+        escolhe = prompt ( "Digite 1 para carregar os Concursos do arquivo da Caixa Econômica, 2 para carregar os Concursos do arquivo salvo pelo app, e 3 para carregar os Cartões Extras do arquivo salvo pelo app." ); //, e 4 para esconder o botão de carregamento." );
         if ( escolhe === "1" ) {
-            funcao = carrega_concursos;
+            funcao = carrega_concursos_do_arquivo_da_cef;
+            
         
         } else if ( escolhe === "2" ) {
+            funcao = carrega_concursos;
+            
+        
+        } else if ( escolhe === "3" ) {
             funcao = carrega_cartoes_extras;
+            
 
         } else if ( escolhe === null ) {
-            document.getElementById( 'botao_escolhe_arquivo' ).style.disabled = true;
+            botao_escolhe_arquivo.disabled = false;
             carregador_arquivos.disabled = true;
-            document.getElementById( 'botao_cancela_carregamento' ).style.disabled = true;
+            botao_cancela_carregamento.disabled = true;
             break;
             
         } else {
@@ -122,7 +213,7 @@ function escolhe_arquivo_para_carregar () {
 
 
 function cancela_carregamento () {
-    document.getElementById( 'botao_escolhe_arquivo' ).style.disabled = false;
+    botao_escolhe_arquivo.disabled = false;
     carregador_arquivos.disabled = true;
-    document.getElementById( 'botao_cancela_carregamento' ).style.disabled = true;
+    botao_cancela_carregamento.disabled = true;
 }

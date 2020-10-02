@@ -19,8 +19,7 @@ function adiciona_cartao () {
             concursos.push( [ [concursos.length], bolas.slice(0) ] );
             selecionador_cartao.innerHTML += adiciona_um_cartao_no_select( concursos.length - 1 );
 
-            salva_no_localstorage( "concursos", concursos ); // Salva os Concursos no LocalStorage.
-            salvar_em_txt ( concursos, "concursos" ); // Salva os Concursos em arquivo .txt.
+            salva_no_localstorage( "concursos", concursos );
 
             adiciona_frequencia_na_ordenada ( bolas ); // Ordena decrescentemente a quantidade de frequência das bolas.
             mostra_frequencia (); // Atualiza a subdivFB com as novas bolas.
@@ -36,7 +35,6 @@ function adiciona_cartao () {
             selecionador_cartao.innerHTML += adiciona_um_cartao_no_select( cartoes_extras.length - 1 );
 
             salva_no_localstorage( "cartoes_extras", cartoes_extras );
-            salvar_em_txt ( cartoes_extras, "cartoes_extras" );
 
             labelQuant.innerHTML = `<b>Quant. = ${ cartoes_extras[ cartoes_extras.length - 1 ][0][0] }</b>`;
             alert ( `Cartão Extra ${ cartoes_extras[ cartoes_extras.length - 1 ][0][0] } adicionado!` );
@@ -130,7 +128,6 @@ function concluir_edicao_do_cartao () {
     //     } else {
     //         concursos[ parseInt( select_numero_tipo_cartao.options[ select_numero_tipo_cartao.selectedIndex ].textContent ) ][1] = bolas.slice(0);
     //         salva_no_localstorage ( "concursos", concursos ); // Salva no localStorage.
-    //         salvar_em_txt ( concursos, "concursos" ); // Salva os Concursos em arquivo .txt.
     //         concluir_edicao_do_cartao_botoes ();
     //     }
 
@@ -143,7 +140,6 @@ function concluir_edicao_do_cartao () {
     //     } else {
     //         cartoes_extras[ parseInt( select_numero_tipo_cartao.options[ select_numero_tipo_cartao.selectedIndex ].textContent ) ][1] = bolas.slice(0);
     //         salva_no_localstorage( "cartoes_extras", cartoes_extras ); // Salva os Cartões Extras no localStorage.
-    //         salvar_em_txt ( cartoes_extras, "cartoes_extras" ); // Salva os Cartões Extras em arquivo .txt.
     //         concluir_edicao_do_cartao_botoes ();
     //     }
     // }
@@ -156,19 +152,13 @@ function concluir_edicao_do_cartao () {
         const index = selecionador_cartao.selectedIndex;
         const numero_cartao = parseInt( selecionador_cartao.option[ index ].textContent );
 
-        if ( tipoDCE[0] === "Concursos" ) {  // Edita o Concurso selecionado.
-
+        if ( tipoDCE[0] === "Concursos" ) {
             concursos[ numero_cartao ][1] = bolas.slice(0);
             salva_no_localstorage ( "concursos", concursos );
-            salvar_em_txt ( concursos, "concursos" );
-            
 
-        } else if ( tipoDCE[0] === "Cartões Extras" ) { // Edit Cartões Extras.
-
+        } else if ( tipoDCE[0] === "Cartões Extras" ) {
             cartoes_extras[ numero_cartao ][1] = bolas.slice(0);
             salva_no_localstorage( "cartoes_extras", cartoes_extras );
-            salvar_em_txt ( cartoes_extras, "cartoes_extras" );
-
         }
 
         concluir_edicao_do_cartao_botoes( numero_cartao );
