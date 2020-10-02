@@ -36,7 +36,7 @@ function seleciona_tipo_cartao ( selecionador_tipo_cartao ) {
     switch ( tipo_cartao_selecionado ) {
 
         case "N":
-            cartoes_selecionados = undefined;
+            cartoes_selecionados = [];
             tipoDCE.push( "Nenhum", 0 );
             botao_CCEA.disabled = true;
 
@@ -52,6 +52,8 @@ function seleciona_tipo_cartao ( selecionador_tipo_cartao ) {
 
             quant = ( concursos.length === 0 ) ? 0 : concursos.length - 1;
             labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`; // O primeiro índice contém strings p/ frases.
+
+            
             break;
 
         case "CE":
@@ -63,9 +65,12 @@ function seleciona_tipo_cartao ( selecionador_tipo_cartao ) {
 
             quant = ( cartoes_extras.length === 0 ) ? 0 : cartoes_extras.length - 1;
             labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`; // O primeiro índice contém strings p/ frases.
+
+            enumera_cartoes_no_select( cartoes_selecionados.length - 1 );
             break;
     }
     
+    reinicia_select_numeros_cartoes();
     enumera_cartoes_no_select( cartoes_selecionados.length - 1 );
 }
 selecionador_tipo_cartao.addEventListener( 'change', event => {

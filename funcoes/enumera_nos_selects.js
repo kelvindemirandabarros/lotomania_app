@@ -3,8 +3,8 @@
  */
 function reinicia_select_numeros_cartoes () {
     // Remove o elemento 1 até sobrar apenas o elemento 0 que não contém texto.
-    while ( select_numero_cartao.length > 1 ) {
-        select_numero_cartao.remove( 1 ); 
+    while ( selecionador_cartao.length > 1 ) {
+        selecionador_cartao.remove( 1 ); 
     }
 }
 
