@@ -100,9 +100,9 @@ function cria_cartao_extra_aleatorio () {
         bolas.push( nova_bola );
     }
 
-    for ( var zeroANoveNove = 0; zeroANoveNove < 100; zeroANoveNove++ ) {
-        if ( bolas.includes( parseInt( botoes_bolas[ zeroANoveNove ].textContent ) ) ) {
-            botoes_bolas[ zeroANoveNove ].style.backgroundColor = "green";
+    for ( var indice = 0; indice < 100; indice++ ) {
+        if ( bolas.includes( parseInt( botoes_bolas[ indice ].textContent ) ) ) {
+            botoes_bolas[ indice ].style.backgroundColor = "green";
         }
     }
 
