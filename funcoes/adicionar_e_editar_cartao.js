@@ -48,8 +48,8 @@ botao_adiciona_cartao.addEventListener( 'click', adiciona_cartao );
 
 // Esta função serve para alterar propriedades do botão "Editar Cartão", deixar visível todos os botões dos números, e para desabilitar alguns botões para que não haja bugs na edição de um cartão.
 function editar_cartao_botoes () {
-    botaoEditaCartao.textContent = "Concluir Edição";
-    botaoEditaCartao.onclick = function () { concluir_edicao_do_cartao () };
+    botao_edita_cartao.textContent = "Concluir Edição";
+    botao_edita_cartao.onclick = function () { concluir_edicao_do_cartao () };
     for ( var cont02 = 0; cont02 < botoes_bolas.length; cont02++ ) {
         botoes_bolas[cont02].style.visibility = "visible";
     }
@@ -105,8 +105,8 @@ function editar_cartao () {
 
 // Esta função serve para concluir a edição e habilitar de volta os botões que foram desabilitados para poder fazer a edição.
 function concluir_edicao_do_cartao_botoes ( numero_cartao ) {
-    botaoEditaCartao.textContent = "Editar Cartão";
-    botaoEditaCartao.onclick = function () { editar_cartao () };
+    botao_edita_cartao.textContent = "Editar Cartão";
+    botao_edita_cartao.onclick = function () { editar_cartao () };
     selecionador_tipo_cartao.disabled = false;
     document.getElementById( "botao_CCEA" ).disabled = false;
     document.getElementById( "botao_adiciona_cartao" ).disabled = false;

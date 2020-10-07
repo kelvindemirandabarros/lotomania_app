@@ -162,7 +162,11 @@ selecionador_cartao.addEventListener( 'change', () => {
     seleciona_numero_cartao( cartoes_selecionados );
 });
 
-const botaoEditaCartao = document.querySelector("button#botaoEditaCartao"); // Botão para editar os cartões.
+// Botão para editar os cartões.
+const botao_edita_cartao = document.getElementById( 'botao_edita_cartao' );
+botao_edita_cartao.addEventListener( 'click', function () {
+    editar_cartao ();
+});
 
 
 // Segunda linha do Menu:
@@ -179,7 +183,13 @@ let p20 = parseInt( document.getElementById( "p20" ).value ); // Premiação com
 
 // Terceira linha do Menu:
 
+const botao_escolhe_arquivo = document.getElementById( 'botao_escolhe_arquivo' );
+botao_escolhe_arquivo.addEventListener( 'click', escolhe_arquivo_para_carregar );
+
 const carregador_arquivos = document.getElementById( 'carregador_arquivos' );
+
+const botao_cancela_carregamento = document.getElementById( 'botao_cancela_carregamento' );
+botao_cancela_carregamento.addEventListener( 'click', cancela_carregamento );
 
 const botao_salva_cartoes_em_arquivos_txt = document.getElementById( 'botao_salva_cartoes_em_arquivos_txt' );
 botao_salva_cartoes_em_arquivos_txt.addEventListener( 'click', () => {
@@ -199,6 +209,79 @@ const subdivCE = document.querySelector( "div#subdivCE" ); // Div que conterá a
 const subdivCEvalores = document.getElementById( "subdivCEvalores" ); // Div que conterá os custos e ganhos dos Cartões E.
 
 const subdivCnCE = document.getElementById( "subdivCnCE" ); // Divisão Concurso nos Cartões Extras.
+const botao_mostrar_c_ce = document.getElementById( 'botao_mostrar_c_ce' );
+// Esta função serve para verificar se haveria premiações dos Concursos nos Cartões Extras.
+function mostra_concursos_nos_cartoes_extras () {
+
+    alert ( "Espere uns instantes!" );
+
+    subdivCnCE.innerHTML = "";
+    var bolas_acertadas = [];
+    texto_premiacoes = "";
+    
+    for ( var concurso = 1 ; concurso < concursos.length ; concurso++ ) { // Contador de Concursos.
+
+        zero = [];
+        quinze = [];
+        dezesseis = [];
+        dezesete = [];
+        dezoito = [];
+        dezenove = [];
+        vinte = [];
+
+        texto_premiacoes += `Concurso número ${ concurso }<br><br>`;
+
+        for ( var cartao_extra = 1; cartao_extra < cartoes_extras.length; cartao_extra++ ) { // Contador de Cartões Extras.
+            
+            bolas_acertadas = []; // Reseta as bolas_acertadas.
+
+            for ( var bola = 0; bola < concursos[ concurso ][1].length; bola++ ) {
+                if ( cartoes_extras[cartao_extra][1].includes( concursos[concurso][1][bola]) ) {
+                    bolas_acertadas.push( concursos[concurso][1][bola] );
+                }
+            }
+
+            if ( bolas_acertadas.length === 0 ) {
+                zero.push( [ cartoes_extras[cartao_extra][0], bolas_acertadas ] );
+                
+            } else if ( bolas_acertadas.length === 18 ) {
+                dezoito.push( [ cartoes_extras[cartao_extra][0], bolas_acertadas ] );                            
+                
+            } else if ( bolas_acertadas.length === 19 ) {
+                dezenove.push( [ cartoes_extras[cartao_extra][0], bolas_acertadas ] );                            
+                
+            } else if ( bolas_acertadas.length === 20 ) {
+                vinte.push( [ cartoes_extras[cartao_extra][0], bolas_acertadas ] );                            
+            }
+        }
+
+        if (
+            zero.length === 0 &&
+            dezoito.length === 0 &&
+            dezenove.length === 0 &&
+            vinte.length === 0
+        ) {
+            texto_premiacoes += `Nenhuma premiação do Concurso ${ concurso } com 0 e nem 18 ou mais nos ${ cartoes_extras.length - 1 } Cartões Extras.<br>`;
+        
+        } else { // Não está conferindo corretamente!
+            if ( zero.length > 0 ) {
+                imprime_conferencia_concursos_nos_cartoes_extras ( zero, 0 );
+            }
+            if ( dezoito.length > 0 ) {
+                imprime_conferencia_concursos_nos_cartoes_extras ( dezoito, 18 );
+            }
+            if ( dezenove.length > 0 ) {
+                imprime_conferencia_concursos_nos_cartoes_extras ( dezenove, 19 );
+            }
+            if ( vinte.length > 0 ) {
+                imprime_conferencia_concursos_nos_cartoes_extras ( vinte, 20 );
+            }
+        }
+        texto_premiacoes += `<br><br>`;
+    }
+    subdivCnCE.innerHTML = texto_premiacoes;
+}
+botao_mostrar_c_ce.addEventListener( 'click', mostra_concursos_nos_cartoes_extras );
 
 // Divisão Comparar cartões do mesmo tipo.
 const subdivCompararCartoesDoMesmoTipo = document.getElementById( "subdivCompararCartoesDoMesmoTipo" );
