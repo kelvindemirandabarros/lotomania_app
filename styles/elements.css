@@ -1,0 +1,48 @@
+* {
+    /* margin: 0px;
+    padding: 0.5px; */
+    box-sizing: border-box; /* Faz as contas automaticamente entre os espaçamentos e as dimensões totais. */
+}
+
+/* Reset de CSS. */
+/* html,
+body {
+    width: 100vw;
+    height: 100vh;
+} */
+body {
+    background-color: rgb(123, 177, 247);
+}
+
+/* Cabeçalho com os Menus. */
+header {
+    margin: 10px 10px 10px 0; /* Espaçamento externo do elemento com outros elementos. */
+    font-weight: 200; /* Espessura do Texto dentro do <div>. */
+    font-size: 100%;
+    border: solid 1px;
+    margin: 4px 4px 0 4px; /* Espaçamento externo. */
+    padding: 4px; /* Espaçamento interno. */
+    min-height: 54px; /* Altura máxima. */
+}
+
+button {
+    border-radius: 4pc; /* Borda arredondada nos botões. */
+}
+
+select {
+    font-family: Arial;
+    font-size: 8pt;
+    background-color:white;
+    border-radius: 4pc; /* Borda arredondada. */
+}
+
+input {
+    border-radius: 5px; /* Borda arredondada nos INPUTs. */
+    padding-left: 6px; /* Espaçamento interno. */
+}
+
+div {
+    /*border: 1px solid; /* 1 pixel de tamanho. Pode ser solid para uma linha, double para duas linhas. */
+    border-radius: 0.4pc;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}

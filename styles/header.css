@@ -1,0 +1,49 @@
+.p-header {
+    margin: 2px;
+    padding: 1px
+}
+
+#botao_instructions {
+    background-color: rgb(179, 236, 222);
+}
+
+#selecionador_tipo_cartao {
+    width: 115px;
+}
+
+#selecionador_cartao {
+    width: 48px;
+}
+
+/* Classe com os LABELs e com os INPUTs de tipo NUMBER. */
+.labels {
+    font-weight: 200; /* Espessura do texto. */
+    font-size: 100%; /* Tamanho do texto. */
+    font-weight: bold; /* Coloca o texto em Negrito. */
+}
+
+#input_custo_cartao {
+    width: 50px;
+}
+#p15 {
+    width: 50px;
+}
+#p16 {
+    width: 50px;
+}
+#p17 {
+    width: 55px;
+}
+#p18 {
+    width: 65px;
+}
+#p19 {
+    width: 75px;
+}
+#p20 {
+    width: 95px;
+}
+
+#txtfiletoread {
+    background: red;
+}
