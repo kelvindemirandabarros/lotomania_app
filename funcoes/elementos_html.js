@@ -183,13 +183,11 @@ let p20 = parseInt( document.getElementById( "p20" ).value ); // Premiação com
 
 // Terceira linha do Menu:
 
-const botao_escolhe_arquivo = document.getElementById( 'botao_escolhe_arquivo' );
-botao_escolhe_arquivo.addEventListener( 'click', escolhe_arquivo_para_carregar );
+// Botão de carregar no arquivo de carregamentos.
 
 const carregador_arquivos = document.getElementById( 'carregador_arquivos' );
 
-const botao_cancela_carregamento = document.getElementById( 'botao_cancela_carregamento' );
-botao_cancela_carregamento.addEventListener( 'click', cancela_carregamento );
+// Botão de cancelar carregamento no arquivo de carregamentos.
 
 const botao_salva_cartoes_em_arquivos_txt = document.getElementById( 'botao_salva_cartoes_em_arquivos_txt' );
 botao_salva_cartoes_em_arquivos_txt.addEventListener( 'click', () => {

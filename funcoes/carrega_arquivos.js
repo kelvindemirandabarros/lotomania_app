@@ -14,7 +14,8 @@ function carrega_concursos_do_arquivo_da_cef () {
 
     const concurso_atual = parseInt( prompt ( "Digite o Concurso atual ou o Concurso a ser alcançado, e espere alguns minutos:" ) );
 
-    if ( concurso_atual === null ) return;
+    if ( concurso_atual === null )
+        cancela_carregamento();
 
     // console.time( 'Carregamento de Concursos' );
 
@@ -82,6 +83,8 @@ function carrega_concursos_do_arquivo_da_cef () {
     console.log( `O programa demorou ${ ob_date.hours }h:${ ob_date.minutes }m:${ ob_date.seconds }s para carregar.` );
     
     console.log( "Carregamento terminado!" );
+
+    salva_no_localstorage( "concursos", concursos );
 }
 
 
@@ -173,9 +176,6 @@ function carrega_cartoes_extras ( frase ) {
 
 
 const botao_escolhe_arquivo = document.getElementById( 'botao_escolhe_arquivo' );
-const botao_cancela_carregamento = document.getElementById( 'botao_cancela_carregamento' );
-
-
 // Esta função serve para escolher o tipo de arquivo que será carregado.
 function escolhe_arquivo_para_carregar () {
 
@@ -186,19 +186,21 @@ function escolhe_arquivo_para_carregar () {
     var escolhe;
     while ( ![ "1", "2", '3' ].includes( escolhe ) ) {
                         
-        escolhe = prompt ( "Digite 1 para carregar os Concursos do arquivo da Caixa Econômica, 2 para carregar os Concursos do arquivo salvo pelo app, e 3 para carregar os Cartões Extras do arquivo salvo pelo app." ); //, e 4 para esconder o botão de carregamento." );
+        escolhe = prompt ( `Digite:
+            1 - para carregar os Concursos do arquivo da Caixa Econômica;
+            2 - para carregar os Concursos do arquivo salvo pelo app;
+            3 - para carregar os Cartões Extras do arquivo salvo pelo app.`
+        ); //, e 4 para esconder o botão de carregamento." );
+
         if ( escolhe === "1" ) {
             funcao = carrega_concursos_do_arquivo_da_cef;
             
-        
         } else if ( escolhe === "2" ) {
             funcao = carrega_concursos;
             
-        
         } else if ( escolhe === "3" ) {
             funcao = carrega_cartoes_extras;
             
-
         } else if ( escolhe === null ) {
             botao_escolhe_arquivo.disabled = false;
             carregador_arquivos.disabled = true;
@@ -210,10 +212,13 @@ function escolhe_arquivo_para_carregar () {
         }
     }
 }
+botao_escolhe_arquivo.addEventListener( 'click', escolhe_arquivo_para_carregar );
 
 
+const botao_cancela_carregamento = document.getElementById( 'botao_cancela_carregamento' );
 function cancela_carregamento () {
     botao_escolhe_arquivo.disabled = false;
     carregador_arquivos.disabled = true;
     botao_cancela_carregamento.disabled = true;
 }
+botao_cancela_carregamento.addEventListener( 'click', cancela_carregamento );
