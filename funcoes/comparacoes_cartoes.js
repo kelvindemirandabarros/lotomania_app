@@ -1,5 +1,17 @@
+var texto_comparacao = ""; // É o texto que vai aparecer na divisão mostrando os cartões com 45 bolas iguais ou mais.
+var texto_comparacao2 = ""; // É o texto que vai aparecer na divisão mostrando os cartões com o máx. de bolas iguais menor que 45.
+
+var lista_bolas; // É a lista que conterá as bolas iguais para cada comparação.
+var quant_max_bolas_iguais = 0;
+
+
 // Esta função serve para comparar a lista um tipo de cartão com a lista de outro tipo para saber se há cartões parecidos.
-function comparar_um_tipo_cartao_com_outro ( cartao_tipo1, indice_cartao1, cartao_tipo2, indice_cartao2 ) {
+function comparar_um_tipo_cartao_com_outro ( 
+    cartao_tipo1,
+    indice_cartao1,
+    cartao_tipo2,
+    indice_cartao2
+) {
     // "cartao_tipo1" e "cartao_tipo2" podem ser as Cartões Extras.
     // "indice_cartao1" e "indice_cartao2" serão os índices dos cartões a serem comparados.
     

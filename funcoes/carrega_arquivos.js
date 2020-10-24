@@ -104,6 +104,10 @@ function carrega_concursos_do_arquivo_da_cef ( arquivo ) {
 
     salva_no_localstorage( "concursos", concursos );
     salva_no_localstorage( "frequencia_bolas", frequencia_bolas );
+
+    frequencia_ordenada_bolas = cria_frequencia_ordenada( frequencia_bolas );
+
+    mostra_frequencia ();
 }
 
 

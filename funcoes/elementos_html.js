@@ -209,6 +209,24 @@ const subdivCEvalores = document.getElementById( "subdivCEvalores" ); // Div que
 
 const subdivCnCE = document.getElementById( "subdivCnCE" ); // Divisão Concurso nos Cartões Extras.
 const botao_mostrar_c_ce = document.getElementById( 'botao_mostrar_c_ce' );
+// Esta função serve para imprimir todas as premiações na tela.
+function imprime_conferencia_concursos_nos_cartoes_extras ( cartoes_premiados, numero_premiacao ) {
+
+    if ( cartoes_premiados.length === 0 ) {
+        texto_premiacoes += `Premiações com ${numero_premiacao} acertos: Nenhuma.<br><br><br>`;
+
+    } else {
+        texto_premiacoes += `Premiações com ${numero_premiacao} acertos: ${cartoes_premiados.length}.<br><br>`;
+
+        for (var cont10 = 0; cont10 < cartoes_premiados.length; cont10++) {
+
+            texto_premiacoes += `Cartão Extra: ${cartoes_premiados[cont10][0]}<br>`;
+            texto_premiacoes += `Bolas acertadas:<br>`;
+            texto_premiacoes += `${cartoes_premiados[cont10][1].join(", ")}<br><br>`;
+        }
+        texto_premiacoes += `<br>`;
+    }
+}
 // Esta função serve para verificar se haveria premiações dos Concursos nos Cartões Extras.
 function mostra_concursos_nos_cartoes_extras () {
 
