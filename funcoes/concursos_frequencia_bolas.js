@@ -22,6 +22,7 @@ function cria_lista_frequencia () {
  * @param { array } bolas_novo_concurso 
  */
 function adiciona_frequencia_das_bolas_novo_concurso ( bolas_novo_concurso ) {
+    console.log( bolas_novo_concurso );
     for ( let bola = 0; bola < 20; bola++ ) {
         frequencia_bolas[ bolas_novo_concurso[ bola ] ][1] += 1; //
     }

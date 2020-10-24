@@ -7,7 +7,7 @@ function mostra_botao_de_carregamento () {
 /**
  * Carrega os Concursos a partir do arquivo da Caixa Econômica Federal.
  */
-function carrega_concursos_do_arquivo_da_cef () {
+function carrega_concursos_do_arquivo_da_cef ( arquivo ) {
     // OBSs.:
     // Colocar a variável para entrar como parâmetro.
     // Fazer com que todas as 4 estatísticas sejam criadas DURANTE o carregamento dos concursos, e não depois do carregamento.
@@ -15,7 +15,7 @@ function carrega_concursos_do_arquivo_da_cef () {
     const concurso_atual = parseInt( prompt ( "Digite o Concurso atual ou o Concurso a ser alcançado, e espere alguns minutos:" ) );
 
     if ( concurso_atual === null )
-        cancela_carregamento();
+        finaliza_carregamento();
 
     // console.time( 'Carregamento de Concursos' );
 
@@ -28,9 +28,11 @@ function carrega_concursos_do_arquivo_da_cef () {
     // Objeto com os cálculos definidos:
     let ob_date = {}; 
 
-    frase = frase.toString();
+    // frase = frase.toString();
 
-    frase = frase.replace( /"[0-9]{1,3}">/g, "\"1\">" );
+    frase = arquivo
+        //.replace( /"[0-9]{1,3}">[^0-9<]/g, "" )
+        .replace( /"[0-9]{1,3}">/g, "\"1\">" );
 
     concursos = [ [ "O", "Concurso", "Os", "Concursos" ] ];
 
@@ -60,7 +62,23 @@ function carrega_concursos_do_arquivo_da_cef () {
             // Retira o começo da string até a bola já adicionada.
         }
 
-        for ( var zz = 1; zz < 24; zz++ ) { // FOR para retirar valores que não importam.
+        for ( var zz = 1; zz < 3; zz++ ) { // FOR para retirar a arrecadação total e a quantidade de ganhadores de 20 acertos.
+
+            frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) ); // Retira valores não importantes.
+        }
+
+        for ( let a = 0; a < 2; a++ ) {
+            if ( 
+                frase.slice(
+                    ( frase.search(`"1">`) + 4 ), 
+                    ( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) )
+                ) === "&nbsp" 
+            ) {
+                frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) ); // Retira valores não importantes.
+            }
+        }
+
+        for ( var zz = 1; zz < 20; zz++ ) { // FOR para retirar valores que não importam.
             // Retira valores não importantes.
             frase = frase.slice( frase.indexOf( `</`, ( frase.search(`"1">`) + 4 ) ) );
         }
@@ -85,15 +103,18 @@ function carrega_concursos_do_arquivo_da_cef () {
     console.log( "Carregamento terminado!" );
 
     salva_no_localstorage( "concursos", concursos );
+    salva_no_localstorage( "frequencia_bolas", frequencia_bolas );
 }
 
 
 // Esta função serve para carregar os Concursos.
-function carrega_concursos ( frase ) {
+function carrega_concursos ( arquivo ) {
 
     alert ( "Espere uns instantes!" );
 
     concursos = [ [ "O", "Concurso", "Os", "Concursos" ] ];
+
+    let frase = arquivo.replace(/\n/g, " ").split(" ");
 
     while ( frase[0] === "" ) {
         // Remove um elemento, no índice 0.
@@ -132,11 +153,13 @@ function carrega_concursos ( frase ) {
 
 
 // Esta função serve para carregar os Cartões Extras.
-function carrega_cartoes_extras ( frase ) {
+function carrega_cartoes_extras ( arquivo ) {
 
     alert ( "Espere uns instantes!" );
 
     cartoes_extras = [ [ "O", "Cartão", "Extra", "Os", "Cartões", "Extras" ] ];
+
+    let frase = arquivo.replace(/\n/g, " ").split(" ");
 
     // Enquanto o primeiro elemento do array Frase for igual a "", então:
     while ( frase[0] === "" ) {
@@ -175,6 +198,8 @@ function carrega_cartoes_extras ( frase ) {
 }
 
 
+// "funcao" serve para guardar a função do arquivo a ser carregado.
+let funcao;
 const botao_escolhe_arquivo = document.getElementById( 'botao_escolhe_arquivo' );
 // Esta função serve para escolher o tipo de arquivo que será carregado.
 function escolhe_arquivo_para_carregar () {
@@ -216,9 +241,54 @@ botao_escolhe_arquivo.addEventListener( 'click', escolhe_arquivo_para_carregar )
 
 
 const botao_cancela_carregamento = document.getElementById( 'botao_cancela_carregamento' );
-function cancela_carregamento () {
+function finaliza_carregamento () {
     botao_escolhe_arquivo.disabled = false;
     carregador_arquivos.disabled = true;
     botao_cancela_carregamento.disabled = true;
 }
-botao_cancela_carregamento.addEventListener( 'click', cancela_carregamento );
+botao_cancela_carregamento.addEventListener( 'click', finaliza_carregamento );
+
+
+/**
+ * Função para carregar um arquivo .txt
+ * @param {*} event é o evento que ativou a função.
+ */
+function carrega_txt ( event ) {
+
+    // Check the support for the File API support:
+    if ( window.File && window.FileReader && window.FileList && window.Blob ) {
+
+        //Set the extension for the file
+        var fileExtension = /text.*/;
+
+        //Get the file object // Arquivo a ler lido. Seleciona o primeiro arquivo da lista.
+        var fileTobeRead = event.target.files[0];
+        
+        //Check of the extension match
+        if ( fileTobeRead.type.match( fileExtension ) ) {
+            
+            //Initialize the FileReader object to read the 2file
+            var fileReader = new FileReader();
+
+            fileReader.onload = function ( e ) {
+
+                const arquivo = fileReader.result;
+                
+                funcao ( arquivo );
+
+                finaliza_carregamento();
+            }
+            
+            // Ainda não sei o que isso daqui faz.
+            fileReader.readAsText( fileTobeRead );
+
+        } else {
+            alert ( "Por favor, selecione arquivo texto!" );
+        }
+    
+    } else {
+        alert ( "Arquivo(s) não suportado(s)!" );
+    }
+}
+
+carregador_arquivos.addEventListener( 'change', event => carrega_txt ( event ), false );

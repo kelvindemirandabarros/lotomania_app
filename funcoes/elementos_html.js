@@ -51,8 +51,8 @@ function seleciona_tipo_cartao ( selecionador_tipo_cartao ) {
             tamanho_maximo = 20;
 
             quant = ( concursos.length === 0 ) ? 0 : concursos.length - 1;
-            labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`; // O primeiro índice contém strings p/ frases.
-
+            // O primeiro índice contém strings p/ frases.
+            labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`;
             
             break;
 
@@ -64,7 +64,8 @@ function seleciona_tipo_cartao ( selecionador_tipo_cartao ) {
             tamanho_maximo = 50;
 
             quant = ( cartoes_extras.length === 0 ) ? 0 : cartoes_extras.length - 1;
-            labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`; // O primeiro índice contém strings p/ frases.
+            // O primeiro índice contém strings p/ frases.
+            labelQuant.innerHTML = `<b>Quant. = ${ quant }</b>`;
 
             enumera_cartoes_no_select( cartoes_selecionados.length - 1 );
             break;
